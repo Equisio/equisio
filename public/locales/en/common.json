@@ -1,0 +1,22 @@
+{
+  "home": {
+    "title": "Where Excellence Meets Authenticity",
+    "subtitle": "The premium platform for buying and selling purebred horses, verified and trusted worldwide.",
+    "browse": "Browse Horses",
+    "sell": "Sell Your Horse",
+    "closeForm": "Close Form",
+    "formTitle": "List Your Horse",
+    "horseName": "Horse Name",
+    "breed": "Breed",
+    "age": "Age",
+    "price": "Price (€)",
+    "description": "Description",
+    "typePlaceholder": "Select Type",
+    "dressage": "Dressage",
+    "stallion": "Stallion",
+    "breeding": "Breeding Mare",
+    "foal": "Foal",
+    "email": "Contact Email",
+    "submit": "Submit Horse for Sale"
+  }
+}
