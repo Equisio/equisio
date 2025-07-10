@@ -40,7 +40,8 @@ export default function Services() {
                 alt="Equivet"
               />
               <h2 className="text-xl font-semibold">Equivet</h2>
-              <p className="text-sm">Veterinary services</p>
+              <p className="text-sm">Veterinary services for equines - Mobile clinic
+Emergency services 24 hours</p>
             </div>
 
           </section>
