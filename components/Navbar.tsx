@@ -34,14 +34,6 @@ export default function Navbar() {
             <Link href="/contact" className="hover:text-yellow-400 transition">Contact</Link>
           </div>
 
-          {/*Language Buttom*/}
-          <div className="hidden md:flex items-center space-x-6">
-            <Link href="/">Home</Link>
-            <Link href="/for_sale">Horses for Sale</Link>
-            {/* otros enlaces */}
-            <LanguageSwitcher />
-            </div>
-
           {/* Mobile Button */}
           <div className="md:hidden">
             <button onClick={toggleMenu} className="text-white focus:outline-none">
