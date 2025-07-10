@@ -19,7 +19,7 @@ export default function Community() {
       <Navbar />
       <main
         className="min-h-screen bg-cover bg-center text-white p-8"
-        style={{ backgroundImage: "url('/community.png')" }}
+        style={{ backgroundImage: "url('/community.jpeg')" }}
       >
         <div className="bg-black bg-opacity-60 rounded-lg max-w-3xl mx-auto p-6">
           <h1 className="text-3xl md:text-4xl font-bold text-center mb-4 drop-shadow">
