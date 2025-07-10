@@ -56,10 +56,10 @@ export default function Home() {
 
               <select className="w-full p-2 border rounded">
                 <option value="">Select Type</option>
-                <option value="doma">En Doma</option>
-                <option value="semental">Semental</option>
-                <option value="cria">Yegua para Cría</option>
-                <option value="potro">Potro</option>
+                <option value="doma">Dressage</option>
+                <option value="semental">Stallion</option>
+                <option value="cria">Breeding mare</option>
+                <option value="potro">Foal</option>
               </select>
 
               <input type="file" accept="image/*" className="w-full" multiple />
