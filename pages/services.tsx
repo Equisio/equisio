@@ -31,6 +31,18 @@ export default function Services() {
               <h2 className="text-xl font-semibold">Rui Leathercraft</h2>
               <p className="text-sm">Custom handmade leather branding from Seville.</p>
             </div>
+
+            {/*Bloque 2 */ }
+            <div className="bg-white text-black rounded shadow p-4">
+              <img
+                src="/Equivet.jpeg"
+                className="w-full h-48 object-cover rounded mb-3"
+                alt="Equivet"
+              />
+              <h2 className="text-xl font-semibold">Equivet</h2>
+              <p className="text-sm">Veterinary services</p>
+            </div>
+
           </section>
 
           {/* Formulario de contacto para empresas */}
