@@ -1,6 +1,9 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { HiMenu, HiX } from 'react-icons/hi'
+import LanguageSwitcher from './LanguageSwitcher'
+
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -30,6 +33,14 @@ export default function Navbar() {
             <Link href="/about" className="hover:text-yellow-400 transition">About</Link>
             <Link href="/contact" className="hover:text-yellow-400 transition">Contact</Link>
           </div>
+
+          {/*Language Buttom*/}
+          <div className="hidden md:flex items-center space-x-6">
+            <Link href="/">Home</Link>
+            <Link href="/for_sale">Horses for Sale</Link>
+            {/* otros enlaces */}
+            <LanguageSwitcher />
+            </div>
 
           {/* Mobile Button */}
           <div className="md:hidden">
