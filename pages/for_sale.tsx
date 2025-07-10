@@ -24,43 +24,43 @@ export default function ForSale() {
           {/* Botones de categorías */}
           <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-12">
             <a href="#doma" className="bg-yellow-400 hover:bg-yellow-300 text-black font-semibold py-3 px-8 rounded">
-              Doma
+              Dressage 
             </a>
             <a href="#sementales" className="bg-yellow-400 hover:bg-yellow-300 text-black font-semibold py-3 px-8 rounded">
-              Sementales
+              Stallion 
             </a>
             <a href="#yeguas" className="bg-yellow-400 hover:bg-yellow-300 text-black font-semibold py-3 px-8 rounded">
-              Yeguas para Cría
+              Breeding mares
             </a>
             <a href="#potros" className="bg-yellow-400 hover:bg-yellow-300 text-black font-semibold py-3 px-8 rounded">
-              Potros
+              Foals 
             </a>
           </div>
 
           {/* Secciones vacías por ahora */}
           <section id="doma" className="mb-16 text-left">
-            <h2 className="text-2xl font-bold mb-4">Caballos en Doma</h2>
+            <h2 className="text-2xl font-bold mb-4">Dressage</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Cards dinámicas aquí más adelante */}
             </div>
           </section>
 
           <section id="sementales" className="mb-16 text-left">
-            <h2 className="text-2xl font-bold mb-4">Sementales</h2>
+            <h2 className="text-2xl font-bold mb-4">Stallion</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Cards dinámicas aquí más adelante */}
             </div>
           </section>
 
           <section id="yeguas" className="mb-16 text-left">
-            <h2 className="text-2xl font-bold mb-4">Yeguas para Cría</h2>
+            <h2 className="text-2xl font-bold mb-4">Breeding mares</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Cards dinámicas aquí más adelante */}
             </div>
           </section>
 
           <section id="potros" className="mb-16 text-left">
-            <h2 className="text-2xl font-bold mb-4">Potros</h2>
+            <h2 className="text-2xl font-bold mb-4">Foals</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Cards dinámicas aquí más adelante */}
             </div>
