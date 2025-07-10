@@ -31,17 +31,6 @@ export default function Services() {
               <h2 className="text-xl font-semibold">Rui Leathercraft</h2>
               <p className="text-sm">Custom handmade leather branding from Seville.</p>
             </div>
-
-            {/* Bloque 2 */}
-            <div className="bg-white text-black rounded shadow p-4">
-              <img
-                src="/services_vidal.jpeg"
-                className="w-full h-48 object-cover rounded mb-3"
-                alt="Equestrian craftsmanship"
-              />
-              <h2 className="text-xl font-semibold">Equestrian Craftsmanship</h2>
-              <p className="text-sm">Traditional and premium service for horse lovers.</p>
-            </div>
           </section>
 
           {/* Formulario de contacto para empresas */}
