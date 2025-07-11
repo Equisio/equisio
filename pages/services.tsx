@@ -72,7 +72,7 @@ Emergency services 24 hours (654288988)</p>
                 type="submit"
                 className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded"
               >
-                Submit
+                Send
               </button>
             </form>
           </section>
