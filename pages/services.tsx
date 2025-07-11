@@ -44,6 +44,17 @@ export default function Services() {
 Emergency services 24 hours (654288988)</p>
             </div>
 
+            {/*Bloque 3 */ }
+            <div className="bg-white text-black rounded shadow p-4">
+              <img
+                src="/service_veinhorse.jpg"
+                className="w-full h-48 object-cover rounded mb-3"
+                alt="Veinhorse"
+              />
+              <h2 className="text-xl font-semibold">Veinhorse</h2>
+              <p className="text-sm">International transport service</p>
+            </div>
+
           </section>
 
           {/* Formulario de contacto para empresas */}
