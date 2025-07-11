@@ -1,0 +1,29 @@
+import nodemailer from 'nodemailer'
+
+export default async function handler(req, res) {
+  if (req.method !== 'POST') return res.status(405).end()
+
+  const { company, email, message } = req.body
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASS,
+    },
+  })
+
+  try {
+    await transporter.sendMail({
+      from: email,
+      to: process.env.MAIL_USER,
+      subject: `Nuevo servicio de ${company}`,
+      text: message,
+    })
+
+    res.status(200).json({ success: true })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ success: false })
+  }
+}
