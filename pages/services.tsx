@@ -58,24 +58,12 @@ Emergency services 24 hours (654288988)</p>
           </section>
 
           {/* Formulario de contacto para empresas */}
-          <section className="mt-20 max-w-xl mx-auto bg-white p-6 rounded shadow text-black">
-            <h3 className="text-2xl font-bold mb-4">Promote your service</h3>
-            <form className="flex flex-col space-y-3">
-              <input type="text" placeholder="Company Name" className="p-2 border rounded" />
-              <input type="email" placeholder="Email" className="p-2 border rounded" />
-              <textarea
-                placeholder="Describe your service"
-                className="p-2 border rounded h-24"
-              />
-              <input type="file" className="p-2 border rounded bg-gray-100" />
-              <button
-                type="submit"
-                className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded"
-              >
-                Send
-              </button>
-            </form>
-          </section>
+          <form method="POST" action="/api/contact">
+          <input type="text" name="companyName" placeholder="Company Name" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <textarea name="message" placeholder="Describe your service" required></textarea>
+          <button type="submit">Send</button>
+          </form> 
         </div>
       </main>
       <Footer />
