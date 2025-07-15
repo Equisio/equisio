@@ -12,7 +12,6 @@ export default function Survey() {
 
   return (
     <>
-      <Navbar />
       <main className="p-8 max-w-2xl mx-auto mt-24">
         <h1 className="text-3xl font-bold mb-6 text-center">Equisio Interest Survey</h1>
         {!submitted ? (

@@ -16,7 +16,6 @@ export default function Community() {
 
   return (
     <>
-      <Navbar />
       <main
         className="min-h-screen bg-cover bg-center text-white p-8"
         style={{ backgroundImage: "url('/community.jpeg')" }}

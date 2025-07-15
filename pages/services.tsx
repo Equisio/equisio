@@ -4,7 +4,6 @@ import Footer from '../components/Footer'
 export default function Services() {
   return (
     <>
-      <Navbar />
       <main
         style={{ backgroundImage: "url('/services_principal.jpeg')" }}
         className="bg-cover bg-center min-h-screen"

@@ -4,7 +4,7 @@ import Footer from '../components/Footer'
 export default function About() {
   return (
     <>
-      <Navbar />
+    
       <main
         className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center text-white text-center px-4"
         style={{ backgroundImage: "url('/about.jpg')" }}
