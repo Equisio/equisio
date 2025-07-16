@@ -4,10 +4,12 @@ import { supabase } from '@/lib/supabaseClient'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export default function MyAccount() {
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -21,8 +23,14 @@ export default function MyAccount() {
     fetchUser()
   }, [])
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    router.push('/auth') // redirigir al login
+  }
+
   return (
     <>
+
       <main
         className="min-h-screen bg-cover bg-center pt-24 px-6"
         style={{ backgroundImage: "url('/account_bg.jpg')" }}
@@ -52,6 +60,13 @@ export default function MyAccount() {
                     Publish New Horse
                   </button>
                 </Link>
+
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition shadow"
+                >
+                  Logout
+                </button>
               </div>
             </>
           ) : (
@@ -66,3 +81,4 @@ export default function MyAccount() {
     </>
   )
 }
+
