@@ -104,7 +104,7 @@ export default function HorseForm() {
       video_url: videoUrl,
       plan,
       user_id: user.id,
-      status: 'pending' // 👈 nuevo estado por defecto
+      status: 'pending'
     }])
 
     if (insertError) {
@@ -118,9 +118,23 @@ export default function HorseForm() {
   if (!sessionChecked) return null
 
   return (
-    <div style={{ backgroundImage: 'url("/horse_form.jpg")', backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh', padding: '2rem' }}>
-      <form onSubmit={handleSubmit} style={{ backgroundColor: 'rgba(255,255,255,0.95)', maxWidth: '600px', margin: '0 auto', padding: '2rem', borderRadius: '12px' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', color: '#d4af37' }}>Publish Your Horse</h2>
+    <div style={{
+      backgroundImage: 'url("/horse_form.jpg")',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      minHeight: '100vh',
+      padding: '2rem'
+    }}>
+      <form onSubmit={handleSubmit} style={{
+        backgroundColor: 'rgba(255,255,255,0.95)',
+        maxWidth: '600px',
+        margin: '0 auto',
+        padding: '2rem',
+        borderRadius: '12px'
+      }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', color: '#d4af37' }}>
+          Publish Your Horse
+        </h2>
 
         {['name', 'breed', 'age', 'price', 'contact_email'].map(field => (
           <input
@@ -131,24 +145,109 @@ export default function HorseForm() {
             value={(formData as any)[field]}
             onChange={handleChange}
             required
-            style={{ width: '100%', padding: '0.8rem', marginBottom: '1rem', borderRadius: '6px', border: '1px solid #ccc' }}
+            style={{
+              width: '100%',
+              padding: '0.8rem',
+              marginBottom: '1rem',
+              borderRadius: '6px',
+              border: '1px solid #ccc'
+            }}
           />
         ))}
 
-        <textarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} required style={{ width: '100%', padding: '0.8rem', marginBottom: '1rem', borderRadius: '6px', border: '1px solid #ccc' }} />
+        <textarea
+          name="description"
+          placeholder="Description"
+          value={formData.description}
+          onChange={handleChange}
+          required
+          style={{
+            width: '100%',
+            padding: '0.8rem',
+            marginBottom: '1.5rem',
+            borderRadius: '6px',
+            border: '1px solid #ccc'
+          }}
+        />
 
-        <label>Image (required)</label>
-        <input type="file" accept="image/*" onChange={handleImageChange} required style={{ marginBottom: '1rem' }} />
+        {/* Custom Image Upload */}
+        <div style={{ marginBottom: '1.5rem' }}>
+          <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '0.5rem' }}>
+            Upload Horse Image <span style={{ color: 'red' }}>*</span>
+          </label>
+          <div
+            style={{
+              border: '2px dashed #ccc',
+              borderRadius: '8px',
+              padding: '1rem',
+              textAlign: 'center',
+              backgroundColor: '#f9f9f9',
+              cursor: 'pointer',
+            }}
+            onClick={() => document.getElementById('imageUpload')?.click()}
+          >
+            {imageFile ? (
+              <p style={{ color: 'green' }}>✅ {imageFile.name}</p>
+            ) : (
+              <p>Click to select or drag & drop image file here</p>
+            )}
+          </div>
+          <input
+            id="imageUpload"
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            required
+            style={{ display: 'none' }}
+          />
+        </div>
 
-        <label>Video (optional)</label>
-        <input type="file" accept="video/*" onChange={handleVideoChange} style={{ marginBottom: '1rem' }} />
+        {/* Custom Video Upload */}
+        <div style={{ marginBottom: '1.5rem' }}>
+          <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '0.5rem' }}>
+            Upload Horse Video (Optional)
+          </label>
+          <div
+            style={{
+              border: '2px dashed #ccc',
+              borderRadius: '8px',
+              padding: '1rem',
+              textAlign: 'center',
+              backgroundColor: '#f9f9f9',
+              cursor: 'pointer',
+            }}
+            onClick={() => document.getElementById('videoUpload')?.click()}
+          >
+            {videoFile ? (
+              <p style={{ color: 'green' }}>🎥 {videoFile.name}</p>
+            ) : (
+              <p>Click to select or drag & drop video file here</p>
+            )}
+          </div>
+          <input
+            id="videoUpload"
+            type="file"
+            accept="video/*"
+            onChange={handleVideoChange}
+            style={{ display: 'none' }}
+          />
+        </div>
 
-        <button type="submit" style={{ width: '100%', padding: '1rem', backgroundColor: '#ffea00', border: 'none', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
+        <button type="submit" style={{
+          width: '100%',
+          padding: '1rem',
+          backgroundColor: '#ffea00',
+          border: 'none',
+          borderRadius: '6px',
+          fontWeight: 'bold',
+          cursor: 'pointer'
+        }}>
           Sell your horse
         </button>
       </form>
     </div>
   )
 }
+
 
 

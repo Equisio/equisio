@@ -1,58 +1,68 @@
-import { useState } from 'react';
-import { supabase } from '../lib/supabaseClient';
-import { useRouter } from 'next/router';
+import { useState } from 'react'
+import { supabase } from '@/lib/supabaseClient'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+import { useRouter } from 'next/router'
 
 export default function AuthPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isRegister, setIsRegister] = useState(false);
-  const [error, setError] = useState('');
-  const router = useRouter();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const router = useRouter()
 
-  const handleAuth = async () => {
-    setError('');
-    const { error } = isRegister
-      ? await supabase.auth.signUp({ email, password })
-      : await supabase.auth.signInWithPassword({ email, password });
-
-    if (error) return setError(error.message);
-    router.push('/my_account');
-  };
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    if (error) {
+      setError(error.message)
+    } else {
+      router.push('/my_account')
+    }
+  }
 
   return (
-    <div className="p-6 max-w-md mx-auto">
-      <h1 className="text-xl font-bold mb-4">{isRegister ? 'Create Account' : 'Login'}</h1>
-
-      <input
-        type="email"
-        placeholder="Email"
-        className="w-full mb-2 p-2 border rounded"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        className="w-full mb-4 p-2 border rounded"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-
-      <button
-        onClick={handleAuth}
-        className="w-full py-2 bg-yellow-500 hover:bg-yellow-600 rounded text-white font-bold"
+    <>
+      <main
+        className="min-h-screen flex items-center justify-center bg-cover bg-center px-6"
+        style={{ backgroundImage: "url('/login.jpg')" }} 
       >
-        {isRegister ? 'Sign Up' : 'Login'}
-      </button>
+        <div className="bg-white bg-opacity-90 p-8 rounded-lg max-w-md w-full shadow-lg">
+          <h1 className="text-2xl font-bold mb-6 text-center text-black">Login</h1>
 
-      {error && <p className="text-red-500 mt-2">{error}</p>}
+          <form onSubmit={handleLogin} className="space-y-4">
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full px-4 py-2 border rounded bg-gray-100"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full px-4 py-2 border rounded bg-gray-100"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
-      <p className="mt-4 text-center text-sm">
-        {isRegister ? 'Already have an account?' : "Don't have an account?"}{' '}
-        <button onClick={() => setIsRegister(!isRegister)} className="text-blue-500 underline">
-          {isRegister ? 'Login' : 'Sign up'}
-        </button>
-      </p>
-    </div>
-  );
+            <button
+              type="submit"
+              className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-4 rounded"
+            >
+              Login
+            </button>
+          </form>
+
+          <p className="text-sm text-center mt-4">
+            Don’t have an account? <a href="/auth#signup" className="text-blue-600 underline">Sign up</a>
+          </p>
+        </div>
+      </main>
+      <Footer />
+    </>
+  )
 }
