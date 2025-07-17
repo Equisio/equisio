@@ -25,10 +25,10 @@ export default function Services() {
               <img
                 src="/services_rui.jpeg"
                 className="w-full h-48 object-cover"
-                alt="Rui Leathercraft"
+                alt="Rui Handmade"
               />
               <div className="p-4">
-                <h2 className="text-xl font-bold mb-1">Rui Leathercraft</h2>
+                <h2 className="text-xl font-bold mb-1">Rui Handmade</h2>
                 <p className="text-sm text-gray-700">Custom handmade leather branding from Seville.</p>
               </div>
             </div>
@@ -63,6 +63,19 @@ export default function Services() {
                   • Transporte de mascotas.<br />
                   • Alquiler de furgonetas adaptadas.
                 </p>
+              </div>
+            </div>
+
+            {/* Bloque 4 */}
+            <div className="bg-white text-black rounded-2xl shadow-lg overflow-hidden">
+              <img
+                src="/casa_vidal.jpg"
+                className="w-full h-48 object-cover"
+                alt="Casa Vidal"
+              />
+              <div className="p-4">
+                <h2 className="text-xl font-bold mb-1">Casa Vidal</h2>
+                <p className="text-sm text-gray-700">Official distributor and craftsmen since 1920</p>
               </div>
             </div>
           </section>
