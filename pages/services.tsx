@@ -29,7 +29,8 @@ export default function Services() {
               />
               <div className="p-4">
                 <h2 className="text-xl font-bold mb-1">Rui Handmade</h2>
-                <p className="text-sm text-gray-700">Custom handmade leather branding from Seville.</p>
+                <p className="text-sm text-gray-700">
+                  • Custom handmade leather branding from Seville.</p>
               </div>
             </div>
 
@@ -43,8 +44,8 @@ export default function Services() {
               <div className="p-4">
                 <h2 className="text-xl font-bold mb-1">Equivet</h2>
                 <p className="text-sm text-gray-700">
-                  Veterinary services for equines – Mobile clinic<br />
-                  Emergency services 24 hours (654 288 988)
+                  • Veterinary services for equines – Mobile clinic<br />
+                  • Emergency services 24 hours (654 288 988)
                 </p>
               </div>
             </div>
@@ -74,7 +75,8 @@ export default function Services() {
               />
               <div className="p-4">
                 <h2 className="text-xl font-bold mb-1">Casa Vidal</h2>
-                <p className="text-sm text-gray-700">Official distributor and craftsmen since 1920</p>
+                <p className="text-sm text-gray-700">
+                  • Official distributor and craftsmen since 1920</p>
               </div>
             </div>
           </section>
