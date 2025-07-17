@@ -59,9 +59,8 @@ export default function Services() {
               <div className="p-4">
                 <h2 className="text-xl font-bold mb-1">Veinhorse</h2>
                 <p className="text-sm text-gray-700">
-                  • Transporte de caballos con conductor.<br />
-                  • Transporte de mascotas.<br />
-                  • Alquiler de furgonetas adaptadas.
+                  • Horse transportation with driver.<br />
+                  • Rental of adapted vans.
                 </p>
               </div>
             </div>
