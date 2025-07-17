@@ -1,84 +1,84 @@
-// pages/my_account.tsx
 import { useEffect, useState } from 'react'
-import { supabase } from '@/lib/supabaseClient'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { supabase } from '@/lib/supabaseClient'
 
 export default function MyAccount() {
-  const [user, setUser] = useState<any>(null)
+  const [userEmail, setUserEmail] = useState<string | null>(null)
+  const [isAdmin, setIsAdmin] = useState(false)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      setUser(user)
+    const fetchUserInfo = async () => {
+      const { data: { session }, error } = await supabase.auth.getSession()
+
+      if (error || !session?.user) {
+        router.push('/')
+        return
+      }
+
+      const user = session.user
+      setUserEmail(user.email)
+
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('is_admin')
+        .eq('id', user.id)
+        .single()
+
+      if (profile?.is_admin) {
+        setIsAdmin(true)
+      }
+
       setLoading(false)
     }
 
-    fetchUser()
-  }, [])
+    fetchUserInfo()
+  }, [router])
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut()
-    router.push('/auth') // redirigir al login
-  }
+  if (loading) return <p className="p-6">Cargando...</p>
 
   return (
-    <>
+    <div className="min-h-screen bg-white py-12 px-6">
+      <div className="max-w-xl mx-auto bg-gray-50 p-8 rounded shadow-md">
+        <h1 className="text-2xl font-bold text-yellow-600 mb-4">My Account</h1>
+        <p className="mb-6">Email: <strong>{userEmail}</strong></p>
 
-      <main
-        className="min-h-screen bg-cover bg-center pt-24 px-6"
-        style={{ backgroundImage: "url('/account_bg.jpg')" }}
-      >
-        <div className="bg-white bg-opacity-90 max-w-3xl mx-auto p-8 rounded-lg shadow-md">
-          <h1 className="text-3xl font-bold mb-6 text-yellow-500">My Account</h1>
+        <div className="flex flex-wrap gap-4">
+          <button
+            className="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500"
+            onClick={() => router.push('/my_ads')}
+          >
+            View My Ads
+          </button>
+          <button
+            className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800"
+            onClick={() => router.push('/publish')}
+          >
+            Publish New Horse
+          </button>
+          <button
+            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+            onClick={async () => {
+              await supabase.auth.signOut()
+              router.push('/')
+            }}
+          >
+            Logout
+          </button>
 
-          {loading ? (
-            <p>Loading...</p>
-          ) : user ? (
-            <>
-              <div className="mb-6">
-                <p className="text-lg">
-                  Email: <span className="font-medium">{user.email}</span>
-                </p>
-              </div>
-
-              <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-                <Link href="/my_ads">
-                  <button className="bg-yellow-400 hover:bg-yellow-300 text-black font-semibold py-2 px-6 rounded-lg transition shadow">
-                    View My Ads
-                  </button>
-                </Link>
-
-                <Link href="/horse_form">
-                  <button className="bg-black text-white hover:bg-gray-800 font-semibold py-2 px-6 rounded-lg transition shadow">
-                    Publish New Horse
-                  </button>
-                </Link>
-
-                <button
-                  onClick={handleLogout}
-                  className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition shadow"
-                >
-                  Logout
-                </button>
-              </div>
-            </>
-          ) : (
-            <p className="text-red-500 font-medium text-center">
-              You must be logged in to view your account.
-            </p>
+          {isAdmin && (
+            <button
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              onClick={() => router.push('/admin')}
+            >
+              Ir al Panel de Administración
+            </button>
           )}
         </div>
-      </main>
-
-      <Footer />
-    </>
+      </div>
+    </div>
   )
 }
+
 
