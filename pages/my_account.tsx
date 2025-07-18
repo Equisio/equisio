@@ -26,10 +26,7 @@ export default function MyAccount() {
         .eq('id', user.id)
         .single()
 
-      if (profile?.is_admin) {
-        setIsAdmin(true)
-      }
-
+      if (profile?.is_admin) setIsAdmin(true)
       setLoading(false)
     }
 
@@ -69,7 +66,7 @@ export default function MyAccount() {
 
           {isAdmin && (
             <button
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
               onClick={() => router.push('/admin')}
             >
               Ir al Panel de Administración

@@ -1,4 +1,3 @@
-// pages/my_ads.tsx
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import { useRouter } from 'next/router'
@@ -14,6 +13,7 @@ interface Horse {
   video_url?: string
   contact_email: string
   plan: 'Premium' | 'Gold' | 'Basic'
+  status: 'pending' | 'approved' | 'rejected'
   created_at: string
 }
 
@@ -85,6 +85,16 @@ export default function MyAds() {
             <p><strong>Age:</strong> {horse.age}</p>
             <p><strong>Price:</strong> €{horse.price}</p>
             <p><strong>Description:</strong> {horse.description}</p>
+            <p>
+              <strong>Status:</strong>{' '}
+              {horse.status === 'approved' ? (
+                <span style={{ color: 'green' }}>Aprobado ✅</span>
+              ) : horse.status === 'pending' ? (
+                <span style={{ color: 'orange' }}>Pendiente ⏳</span>
+              ) : (
+                <span style={{ color: 'red' }}>Rechazado ❌</span>
+              )}
+            </p>
             {horse.image_url && <img src={horse.image_url} alt={horse.name} style={{ maxWidth: '100%', marginTop: '1rem' }} />}
             {horse.video_url && <video src={horse.video_url} controls style={{ maxWidth: '100%', marginTop: '1rem' }} />}
             <div style={{ marginTop: '1rem' }}>
@@ -108,3 +118,4 @@ export default function MyAds() {
     </div>
   )
 }
+
