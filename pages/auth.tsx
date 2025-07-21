@@ -11,13 +11,17 @@ export default function AuthPage() {
   const [lastName, setLastName] = useState('')
   const [country, setCountry] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+    setLoading(true)
 
     const { error } = await supabase.auth.signInWithPassword({ email, password })
+    setLoading(false)
+
     if (error) {
       setError(error.message)
     } else {
@@ -28,37 +32,47 @@ export default function AuthPage() {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+    setLoading(true)
 
     const full_name = `${firstName} ${lastName}`
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error: signupError } = await supabase.auth.signUp({
       email,
-      password,
-      options: {
-        data: { full_name, country }
-      }
+      password
     })
 
-    if (error) {
-      setError(error.message)
+    if (signupError) {
+      setLoading(false)
+      setError('Signup failed: ' + signupError.message)
+      return
+    }
+
+    const { error: dbError } = await supabase.from('profiles').insert([{
+      id: data.user?.id,
+      full_name,
+      country
+    }])
+
+    setLoading(false)
+
+    if (dbError) {
+      setError('Database error saving user: ' + dbError.message)
     } else {
-      alert('Check your email to confirm your account.')
+      alert('Check your email to confirm your registration.')
       setIsSignup(false)
     }
   }
 
   return (
-    <>
-      <main
-        className="min-h-screen flex items-center justify-center bg-cover bg-center px-6"
-        style={{ backgroundImage: "url('/login.jpg')" }}
-      >
-        <div className="bg-white bg-opacity-90 p-8 rounded-lg max-w-md w-full shadow-lg">
-          <h1 className="text-2xl font-bold mb-6 text-center text-black">
-            {isSignup ? 'Create an Account' : 'Login'}
-          </h1>
+    <div className="min-h-screen flex flex-col justify-between bg-gray-100">
+      {/* Centered Auth Box */}
+      <div className="flex-grow flex items-center justify-center px-4">
+        <div className="w-full max-w-md bg-white p-10 rounded-2xl shadow-xl">
+          <h2 className="text-3xl font-bold text-center text-yellow-500 mb-6">
+            {isSignup ? 'Create Your Account' : 'Log In to Equisio'}
+          </h2>
 
-          {error && <p className="text-red-500 text-sm mb-4 text-center">{error}</p>}
+          {error && <p className="text-red-500 text-center text-sm mb-4">{error}</p>}
 
           <form onSubmit={isSignup ? handleSignup : handleLogin} className="space-y-4">
             {isSignup && (
@@ -69,7 +83,7 @@ export default function AuthPage() {
                   value={firstName}
                   onChange={e => setFirstName(e.target.value)}
                   required
-                  className="w-full px-4 py-2 border rounded bg-gray-100"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 />
                 <input
                   type="text"
@@ -77,7 +91,7 @@ export default function AuthPage() {
                   value={lastName}
                   onChange={e => setLastName(e.target.value)}
                   required
-                  className="w-full px-4 py-2 border rounded bg-gray-100"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 />
                 <input
                   type="text"
@@ -85,7 +99,7 @@ export default function AuthPage() {
                   value={country}
                   onChange={e => setCountry(e.target.value)}
                   required
-                  className="w-full px-4 py-2 border rounded bg-gray-100"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 />
               </>
             )}
@@ -96,51 +110,42 @@ export default function AuthPage() {
               value={email}
               onChange={e => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-2 border rounded bg-gray-100"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
+
             <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={e => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-2 border rounded bg-gray-100"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
 
             <button
               type="submit"
-              className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-4 rounded"
+              disabled={loading}
+              className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 rounded-lg transition"
             >
-              {isSignup ? 'Create Account' : 'Login'}
+              {loading ? 'Please wait...' : isSignup ? 'Sign Up' : 'Log In'}
             </button>
           </form>
 
-          <div className="text-sm text-center mt-4">
-            {isSignup ? (
-              <p>
-                Already have an account?{' '}
-                <button
-                  onClick={() => setIsSignup(false)}
-                  className="text-yellow-500 underline hover:text-yellow-600"
-                >
-                  Log In
-                </button>
-              </p>
-            ) : (
-              <p>
-                Don’t have an account?{' '}
-                <button
-                  onClick={() => setIsSignup(true)}
-                  className="text-yellow-500 underline hover:text-yellow-600"
-                >
-                  Sign Up
-                </button>
-              </p>
-            )}
-          </div>
+          <p className="mt-5 text-center text-sm text-gray-700">
+            {isSignup ? 'Already have an account?' : 'Don’t have an account?'}{' '}
+            <button
+              onClick={() => setIsSignup(!isSignup)}
+              className="text-blue-600 hover:underline font-medium"
+            >
+              {isSignup ? 'Log in' : 'Sign up'}
+            </button>
+          </p>
         </div>
-      </main>
+      </div>
+
+      {/* Footer fixed at bottom */}
       <Footer />
-    </>
+    </div>
   )
 }
+

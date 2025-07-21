@@ -15,6 +15,10 @@ export default function HorseForm() {
     price: '',
     description: '',
     contact_email: '',
+    contact_phone: '',
+    category: '',
+    location: '',
+    title: '',
   })
 
   const [imageFile, setImageFile] = useState<File | null>(null)
@@ -103,14 +107,14 @@ export default function HorseForm() {
       image_url: imageUrl,
       video_url: videoUrl,
       plan,
-      user_id: user.id,
-      status: 'pending'
+      owner_id: user.id,        // ✅ campo correcto
+      status: 'pending'         // ✅ queda a la espera de aprobación
     }])
 
     if (insertError) {
       alert('Failed to publish the horse.')
     } else {
-      alert('Horse submitted for review.')
+      alert('Horse submitted for review. You’ll be notified once it’s approved.')
       router.push('/for_sale')
     }
   }
@@ -136,12 +140,12 @@ export default function HorseForm() {
           Publish Your Horse
         </h2>
 
-        {['name', 'breed', 'age', 'price', 'contact_email'].map(field => (
+        {['title', 'name', 'breed', 'category', 'location', 'age', 'price', 'contact_email', 'contact_phone'].map(field => (
           <input
             key={field}
-            type={field === 'age' || field === 'price' ? 'number' : 'text'}
+            type={['age', 'price'].includes(field) ? 'number' : 'text'}
             name={field}
-            placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+            placeholder={field.charAt(0).toUpperCase() + field.slice(1).replace('_', ' ')}
             value={(formData as any)[field]}
             onChange={handleChange}
             required
@@ -170,7 +174,7 @@ export default function HorseForm() {
           }}
         />
 
-        {/* Custom Image Upload */}
+        {/* Upload Imagen */}
         <div style={{ marginBottom: '1.5rem' }}>
           <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '0.5rem' }}>
             Upload Horse Image <span style={{ color: 'red' }}>*</span>
@@ -202,7 +206,7 @@ export default function HorseForm() {
           />
         </div>
 
-        {/* Custom Video Upload */}
+        {/* Upload Video */}
         <div style={{ marginBottom: '1.5rem' }}>
           <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '0.5rem' }}>
             Upload Horse Video (Optional)
@@ -242,7 +246,7 @@ export default function HorseForm() {
           fontWeight: 'bold',
           cursor: 'pointer'
         }}>
-          Sell your horse
+          Submit for Review
         </button>
       </form>
     </div>
