@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
 import { useRouter } from 'next/router'
 import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar'
 
 export default function AuthPage() {
   const [isSignup, setIsSignup] = useState(false)
@@ -64,15 +65,21 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-gray-100">
-      {/* Centered Auth Box */}
-      <div className="flex-grow flex items-center justify-center px-4">
-        <div className="w-full max-w-md bg-white p-10 rounded-2xl shadow-xl">
-          <h2 className="text-3xl font-bold text-center text-yellow-500 mb-6">
+    <>
+      <main
+        className="relative min-h-screen bg-cover bg-center flex items-center justify-center text-white"
+        style={{ backgroundImage: "url('/login.jpg')" }} // 👈 pon tu imagen en /public/login-bg.jpg
+      >
+        {/* Overlay oscuro */}
+        <div className="absolute inset-0 bg-black bg-opacity-60 z-0" />
+
+        {/* Caja con transparencia */}
+        <div className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-md p-8 rounded-xl border border-white/10 shadow-lg">
+          <h2 className="text-3xl font-bold text-center text-yellow-400 mb-6 drop-shadow-lg">
             {isSignup ? 'Create Your Account' : 'Log In to Equisio'}
           </h2>
 
-          {error && <p className="text-red-500 text-center text-sm mb-4">{error}</p>}
+          {error && <p className="text-red-400 text-center text-sm mb-4">{error}</p>}
 
           <form onSubmit={isSignup ? handleSignup : handleLogin} className="space-y-4">
             {isSignup && (
@@ -83,7 +90,7 @@ export default function AuthPage() {
                   value={firstName}
                   onChange={e => setFirstName(e.target.value)}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  className="w-full px-4 py-3 bg-black/30 text-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 />
                 <input
                   type="text"
@@ -91,7 +98,7 @@ export default function AuthPage() {
                   value={lastName}
                   onChange={e => setLastName(e.target.value)}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  className="w-full px-4 py-3 bg-black/30 text-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 />
                 <input
                   type="text"
@@ -99,7 +106,7 @@ export default function AuthPage() {
                   value={country}
                   onChange={e => setCountry(e.target.value)}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  className="w-full px-4 py-3 bg-black/30 text-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 />
               </>
             )}
@@ -110,7 +117,7 @@ export default function AuthPage() {
               value={email}
               onChange={e => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              className="w-full px-4 py-3 bg-black/30 text-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
 
             <input
@@ -119,7 +126,7 @@ export default function AuthPage() {
               value={password}
               onChange={e => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              className="w-full px-4 py-3 bg-black/30 text-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
 
             <button
@@ -131,21 +138,19 @@ export default function AuthPage() {
             </button>
           </form>
 
-          <p className="mt-5 text-center text-sm text-gray-700">
+          <p className="mt-5 text-center text-sm text-gray-200">
             {isSignup ? 'Already have an account?' : 'Don’t have an account?'}{' '}
             <button
               onClick={() => setIsSignup(!isSignup)}
-              className="text-blue-600 hover:underline font-medium"
+              className="text-yellow-300 hover:underline font-medium"
             >
               {isSignup ? 'Log in' : 'Sign up'}
             </button>
           </p>
         </div>
-      </div>
-
-      {/* Footer fixed at bottom */}
+      </main>
       <Footer />
-    </div>
+    </>
   )
 }
 
