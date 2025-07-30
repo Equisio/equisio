@@ -76,27 +76,29 @@ export default function Community() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
+    <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
       {/* Left Side - Form */}
-      <div className="w-full md:w-1/2 p-8 bg-white">
-        <h1 className="text-3xl font-bold text-purple-700 mb-6">Community</h1>
+      <div className="w-full md:w-1/2 p-6 sm:p-8 bg-white shadow-md">
+        <h1 className="text-3xl sm:text-4xl font-bold text-purple-700 mb-6 text-center md:text-left">
+          Community
+        </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
             placeholder="Your name (optional)"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full border rounded-lg p-2"
+            className="w-full border rounded-lg p-3 text-sm sm:text-base"
           />
           <textarea
             placeholder="Write your message..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="w-full border rounded-lg p-2 h-24"
+            className="w-full border rounded-lg p-3 h-28 text-sm sm:text-base"
           />
           <button
             type="submit"
-            className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
+            className="w-full sm:w-auto bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition shadow-md"
           >
             Send
           </button>
@@ -105,57 +107,64 @@ export default function Community() {
 
       {/* Right Side - Forum */}
       <div
-        className="w-full md:w-1/2 p-8 text-white bg-cover bg-center overflow-y-auto"
+        className="relative w-full md:w-1/2 p-6 sm:p-8 text-white bg-cover bg-center overflow-y-auto"
         style={{ backgroundImage: "url('/community.jpeg')" }}
       >
-        <h2 className="text-2xl font-bold mb-4">Community Forum</h2>
-        {comments.length === 0 ? (
-          <p>No posts yet.</p>
-        ) : (
-          <div className="space-y-6">
-            {comments.map((comment) => (
-              <div
-                key={comment.id}
-                className="bg-black bg-opacity-60 p-4 rounded-lg shadow-md transition transform hover:scale-[1.01]"
-              >
-                {/* Header con avatar */}
-                <div className="flex items-center mb-2">
-                  <div className="w-10 h-10 flex items-center justify-center bg-purple-500 rounded-full font-bold text-white mr-3">
-                    {comment.author.charAt(0).toUpperCase()}
-                  </div>
-                  <div>
-                    <p className="font-semibold">{comment.author}</p>
-                    <span className="text-xs text-gray-300">{comment.timestamp}</span>
-                  </div>
-                </div>
+        {/* Overlay for readability */}
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
-                {/* Texto */}
-                <p className="mb-2">{comment.text}</p>
-
-                {/* Replies */}
-                <div className="ml-6 mt-2 space-y-2">
-                  {comment.replies.map((reply) => (
-                    <div
-                      key={reply.id}
-                      className="bg-gray-800 bg-opacity-80 p-2 rounded transition"
-                    >
-                      <p className="font-semibold text-sm">{reply.author}</p>
-                      <span className="text-xs text-gray-400">{reply.timestamp}</span>
-                      <p>{reply.text}</p>
+        <div className="relative z-10">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-center md:text-left">
+            Community Forum
+          </h2>
+          {comments.length === 0 ? (
+            <p className="text-center md:text-left text-gray-200">No posts yet.</p>
+          ) : (
+            <div className="space-y-6">
+              {comments.map((comment) => (
+                <div
+                  key={comment.id}
+                  className="bg-black bg-opacity-60 p-4 rounded-lg shadow-md transition transform hover:scale-[1.01]"
+                >
+                  {/* Header con avatar */}
+                  <div className="flex items-center mb-2">
+                    <div className="w-10 h-10 flex items-center justify-center bg-purple-500 rounded-full font-bold text-white mr-3">
+                      {comment.author.charAt(0).toUpperCase()}
                     </div>
-                  ))}
+                    <div>
+                      <p className="font-semibold">{comment.author}</p>
+                      <span className="text-xs text-gray-300">{comment.timestamp}</span>
+                    </div>
+                  </div>
 
-                  {/* Reply Form Toggle */}
-                  <ReplyForm
-                    onReply={(replyAuthor, replyText) =>
-                      handleReply(comment.id, replyAuthor, replyText)
-                    }
-                  />
+                  {/* Texto */}
+                  <p className="mb-2 text-sm sm:text-base">{comment.text}</p>
+
+                  {/* Replies */}
+                  <div className="ml-6 mt-2 space-y-2">
+                    {comment.replies.map((reply) => (
+                      <div
+                        key={reply.id}
+                        className="bg-gray-800 bg-opacity-80 p-2 rounded transition"
+                      >
+                        <p className="font-semibold text-sm">{reply.author}</p>
+                        <span className="text-xs text-gray-400">{reply.timestamp}</span>
+                        <p className="text-sm">{reply.text}</p>
+                      </div>
+                    ))}
+
+                    {/* Reply Form Toggle */}
+                    <ReplyForm
+                      onReply={(replyAuthor, replyText) =>
+                        handleReply(comment.id, replyAuthor, replyText)
+                      }
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -192,16 +201,16 @@ function ReplyForm({ onReply }: { onReply: (author: string, text: string) => voi
             placeholder="Your name (optional)"
             value={replyName}
             onChange={(e) => setReplyName(e.target.value)}
-            className="border rounded p-1 text-black"
+            className="border rounded p-2 text-sm text-black"
           />
           <textarea
             placeholder="Write a reply..."
             value={replyText}
             onChange={(e) => setReplyText(e.target.value)}
-            className="border rounded p-1 text-black h-16"
+            className="border rounded p-2 text-sm text-black h-20"
           />
           <div className="flex gap-2">
-            <button type="submit" className="bg-purple-500 text-white px-3 py-1 rounded">
+            <button type="submit" className="bg-purple-500 text-white px-3 py-1 rounded text-sm">
               Send Reply
             </button>
             <button
@@ -217,4 +226,5 @@ function ReplyForm({ onReply }: { onReply: (author: string, text: string) => voi
     </div>
   );
 }
+
 
